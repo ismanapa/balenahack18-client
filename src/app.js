@@ -41,6 +41,7 @@ const drawMaze = (maze) => {
 
 const drawEmptyMaze = () => {
     senseLeds.setPixels(maze);
+    console.log('drawed empty maze');
 }
 
 const start = () => {
@@ -52,6 +53,7 @@ const start = () => {
 const mockOnStart = () => {
     // var patata =  Object.assign([], ...maze);   
     var patata = maze.slice(0);
+    console.log('start', patata);
     var position = positionToIdx(2, 4);
     patata[position] = MY_COLOR;
     drawMaze(patata);
