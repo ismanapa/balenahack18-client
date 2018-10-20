@@ -61,13 +61,13 @@ socket.on('start', (newUser) => {
     var newPanel = maze.slice(0);
     var position = positionToIdx(userData.position.x, userData.position.y);
     newPanel[position] = MY_COLOR;
-
+    console.log('user on start', userData);
     senseLeds.setPixels(newPanel);
 });
 
 socket.on('update', (users) => {
     var newPanel = maze.slice(0);
-    console.log('users', users);
+    console.log('users received', users);
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
         var color = user.id !== userData.id ? user.color :  MY_COLOR;
@@ -97,5 +97,6 @@ senseJoystick.getJoystick()
        }
 
        socket.emit("move", {id: userData.id, move:{ x: x, y: y}})
+       console.log('emitimos move');
     });
 });
