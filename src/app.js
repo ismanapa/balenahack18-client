@@ -3,7 +3,7 @@ const senseLeds = require('sense-hat-led');
 const senseJoystick = require('sense-joystick');
 
 //CONFIGURATION SETTINGS
-const SERVER_HOST = process.env.SERVER_HOST || 'http://10.10.1.95';
+const SERVER_HOST = process.env.SERVER_HOST || 'http://10.10.1.67';
 const SERVER_PORT = process.env.SERVER_PORT || '8000';
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 
@@ -36,66 +36,10 @@ const maze = [
 
 const drawEmptyMaze = () => {
     senseLeds.setPixels(maze);
-    console.log('drawed empty maze');
 }
 
 const start = () => {
     drawEmptyMaze();
-    mockOnStart();
-    mockOnUpdate();
-}
-
-const mockOnStart = () => {
-    var patata =  Object.assign([], ...maze);   
-    var newPanel = maze.slice(0);
-    console.log('start', newPanel);
-    var position = positionToIdx(2, 4);
-    newPanel[position] = MY_COLOR;
-    console.log('count', newPanel.length);
-    senseLeds.setPixels(newPanel);
-}
-
-const users = [
-    {
-        id: '1',
-        position: {
-            x: 2,
-            y: 6,
-        },
-        color: [123,12,56],
-    },
-    {
-        id: '2',
-        position: {
-            x: 0,
-            y: 0,
-        },
-        color: [0,0,0],
-    },
-    {
-        id: '3',
-        position: {
-            x: 4,
-            y: 6,
-        },
-        color: [47,89,104],
-    },
-];
-
-const mockOnUpdate = () => {
-    var newPanel = maze.slice(0);
-    
-    users.map((user) => {
-        console.log('user', user);
-        var position = positionToIdx(user.position.x, user.position.y);
-        console.log('position', position);
-        var color = user.id !== userData.id ? user.color : MY_COLOR;
-        console.log('update');
-        newPanel[position] = color;
-        console.log('count', newPanel.length);
-    })
-
-    senseLeds.setPixels(newPanel);
 }
 
 const positionToIdx = (x, y) => {
@@ -117,6 +61,7 @@ socket.on('start', (newUser) => {
     var newPanel = maze.slice(0);
     var position = positionToIdx(userData.position.x, userData.position.y);
     newPanel[position] = MY_COLOR;
+
     senseLeds.setPixels(newPanel);
 });
 
@@ -133,4 +78,23 @@ socket.on('update', (users) => {
 
 
 start();
+// Setup input callbacks
+senseJoystick.getJoystick()
+.then((joystick) => {
+    joystick.on('press', (val) => {
+       var x = 0;
+       var y = 0;
+        switch(val) {
+           case 'up':
+               y = -1;
+           case 'down':
+               y = 1;
+           case 'left':
+               x = -1;
+           case 'right':
+               x = 1;
+       }
 
+       on.emit("move", {id: userData.id, move:{ x: x, y: y}})
+    });
+});
