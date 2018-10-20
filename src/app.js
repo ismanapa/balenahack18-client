@@ -1,4 +1,3 @@
-
 const senseLeds = require('sense-hat-led');
 const senseJoystick = require('sense-joystick');
 
@@ -10,23 +9,16 @@ const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}
 //APPLICATION SETTINGS
 const WIDTH = 8;
 const HEIGHT = 8;
-const MY_COLOR = process.env.MY_COLOR || [255, 255, 255];
 const BLACK_COLOR = [0, 0, 0];
 const RED_COLOR = [255, 0, 0];
 
+const ZOMBIE_ROLE = "zombie";
+const SURVIVOR_ROLE = "survivor";
 
-let userData = {
-    id: '2',
-    position: {
-        x: 0,
-        y: 0
-    },
-    color: MY_COLOR,
-};
-
+//PANELS
 const _ = BLACK_COLOR;
 const X = RED_COLOR;
-const maze = [
+const emptyMaze = [
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _,
@@ -48,12 +40,28 @@ const cross = [
     X, _, _, _, _, _, _, X
 ];
 
-const drawEmptyMaze = () => {
-    senseLeds.setPixels(maze);
-}
+//COLORS
+const ZOMBIE_COLOR = [255, 0, 0];
+const SURVIVOR_COLOR = [0, 255, 0];
+
+const MY_ZOMBIE_COLOR = [190, 0, 0];
+const MY_SURVIVOR_COLOR = [0, 190, 0];
+
+let userData = {
+    id: '2',
+    position: {
+        x: 0,
+        y: 0
+    },
+    color: MY_COLOR,
+    role: ''
+};
+
+
+start();
 
 const start = () => {
-    drawEmptyMaze();
+    senseLeds.setPixels(emptyMaze);
 }
 
 const positionToIdx = (x, y) => {
@@ -66,6 +74,16 @@ const positionToIdx = (x, y) => {
 	return (WIDTH * x) + y;
 };
 
+const getColorByRole = (role) => {
+    switch(role) {
+        case SURVIVOR_ROLE:
+            return MY_SURVIVOR_COLOR;
+        case ZOMBIE_ROLE:
+            return MY_ZOMBIE_COLOR;
+    }
+}
+
+//EVENTS
 socket.on('connect', () => { 
     console.log('connected new player');
 });
@@ -76,34 +94,43 @@ socket.on('disconnect', () => {
 
 socket.on('start', (newUser) => {
     userData = Object.assign(userData, newUser);
-    var newPanel = maze.slice(0);
+    var newPanel = emptyMaze.slice(0);
     var position = positionToIdx(userData.position.x, userData.position.y);
-    newPanel[position] = MY_COLOR;
+    newPanel[position] = getColorByRole(userData.role);
     console.log('user on start', userData);
     senseLeds.setPixels(newPanel);
 });
 
 socket.on('update', (users) => {
-    var newPanel = maze.slice(0);
+    var newPanel = emptyMaze.slice(0);
     console.log('users received', users);
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
-        var color = user.id !== userData.id ? user.color :  MY_COLOR;
+
+        var color;
+        if (user.id === userData.id) {
+            getColorByRole(user.role);
+        } else {
+            switch(user.role) {
+                case SURVIVOR_ROLE:
+                    color = SURVIVOR_COLOR;
+                break;
+                case ZOMBIE_ROLE:
+                    color = ZOMBIE_COLOR;
+                break;
+            }
+        }
         newPanel[position] = color;
     })
 
     senseLeds.setPixels(newPanel);
 });
 
-
-start();
-// Setup input callbacks
 senseJoystick.getJoystick()
 .then((joystick) => {
     joystick.on('press', (val) => {
        var x = 0;
        var y = 0;
-       console.log('mov', val);
         switch(val) {
            case 'up':
                x = -1;
@@ -118,10 +145,6 @@ senseJoystick.getJoystick()
                y = 1;
             break;
        }
-       console.log('x', x);
-       console.log('y', y);
-       console.log('userData', userData);
        socket.emit("move", {id: userData.id, move:{ x: x, y: y}})
-       console.log('emitimos move');
     });
 });
