@@ -11,7 +11,7 @@ const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}
 const WIDTH = 8;
 const HEIGHT = 8;
 const MY_COLOR = process.env.MY_COLOR || [255, 255, 255];
-const BLACK_COLOR = [23, 144, 47];
+const BLACK_COLOR = [0, 0, 0];
 
 let userData = {
     id: '',
@@ -19,7 +19,7 @@ let userData = {
         x: 0,
         y: 0
     },
-    color: '',
+    color: MY_COLOR,
 };
 
 const { mazes } = (() => {
@@ -42,6 +42,22 @@ const { mazes } = (() => {
 
 const drawMaze = (maze) => {
     senseLeds.setPixels(maze);
+}
+
+const drawEmptyMaze = () => {
+    senseLeds.setPixels(mazes.none);
+}
+
+const start = () => {
+    drawEmptyMaze();
+    mockReceivingData();
+}
+
+const mockReceivingData = () => {
+    var patata = mazes.none;
+    var position = positionToIdx(2, 4);
+    patata[position] = MY_COLOR;
+    drawMaze(patata);
 }
 
 socket.on('connect', () => { 
@@ -68,4 +84,5 @@ const positionToIdx = (x, y ) => {
 	return x + WIDTH * y;
 };
 
+start();
 
