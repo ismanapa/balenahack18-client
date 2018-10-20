@@ -83,7 +83,7 @@ socket.on('update', (users) => {
 
         var color;
         if (user.id === userData.id) {
-            getColorByRole(user.role);
+            color = getColorByRole(user.role);
         } else {
             switch(user.role) {
                 case SURVIVOR_ROLE:
