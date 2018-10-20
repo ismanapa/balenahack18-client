@@ -58,11 +58,11 @@ let userData = {
 };
 
 
-start();
-
 const start = () => {
     senseLeds.setPixels(emptyMaze);
 }
+
+start();
 
 const positionToIdx = (x, y) => {
 	if (x < 0 || x >= WIDTH) {
