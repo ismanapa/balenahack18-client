@@ -55,9 +55,11 @@ const start = () => {
 }
 
 const mockOnStart = () => {
-    var patata =  Object.assign({}, ...mazes.none);
+    var patata =  Object.assign({}, mazes.none);
+    
     var position = positionToIdx(2, 4);
     patata[position] = MY_COLOR;
+    console.log('maze onStat', patata);
     drawMaze(patata);
 }
 
@@ -89,7 +91,8 @@ const mockOnUpdate = () => {
         },
     ];
 
-    var newPanel = Object.assign({}, ...mazes.none);
+    var newPanel = Object.assign({}, mazes.none);
+    console.log('maze onUpdate', newPanel);
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
         var color = user.id !== userData.id ? user.color : MY_COLOR;
@@ -122,14 +125,6 @@ socket.on('start', (newUser) => {
     drawMaze(newPanel);
 });
 
-// [
-//     {
-//         position: {x: , y: },
-//         color: [,,],
-//         id: ''
-//     }
-//     ...
-// ]
 socket.on('update', (users) => {
     var newPanel = Object.assign({}, ...mazes.none);
     users.map((user) => {
