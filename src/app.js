@@ -53,7 +53,7 @@ let userData = {
         x: 0,
         y: 0
     },
-    color: MY_COLOR,
+    color: '',
     role: ''
 };
 
