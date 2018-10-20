@@ -14,7 +14,7 @@ const MY_COLOR = process.env.MY_COLOR || [255, 255, 255];
 const BLACK_COLOR = [0, 0, 0];
 
 let userData = {
-    id: '',
+    id: '2',
     position: {
         x: 0,
         y: 0
@@ -50,29 +50,55 @@ const drawEmptyMaze = () => {
 
 const start = () => {
     drawEmptyMaze();
-    mockReceivingData();
+    mockOnStart();
+    mockOnUpdate();
 }
 
-const mockReceivingData = () => {
+const mockOnStart = () => {
     var patata = mazes.none;
     var position = positionToIdx(2, 4);
     patata[position] = MY_COLOR;
     drawMaze(patata);
 }
 
-socket.on('connect', () => { 
-    console.log('connected new player');
-});
+const mockOnUpdate = () => {
+    const users = [
+        {
+            id: '1',
+            position: {
+                x: 2,
+                y: 8,
+            },
+            color: [123,12,56],
+        },
+        {
+            id: '2',
+            position: {
+                x: 0,
+                y: 5,
+            },
+            color: [0,0,0],
+        },
+        {
+            id: '3',
+            position: {
+                x: 4,
+                y: 6,
+            },
+            color: [47,89,104],
+        },
+    ];
 
+    var newPanel = mazes.none;
+    users.map((user) => {
+        var position = positionToIdx(user.position.x, user.position.y);
+        var color = user.id !== userData.id ? user.color :  MY_COLOR;
+        newPanel[position] = color;
+    })
 
-socket.on('start', function(newUser){
-    userData = Object.assign(userData, newUser);
+    drawMaze(newPanel);
 
-    var patata = mazes.none;
-    var position = positionToIdx(userData.position.x, userData.position.y);
-    patata[position] = MY_COLOR;
-    drawMaze(patata);
-});
+}
 
 const positionToIdx = (x, y ) => {
 	if (x < 0 || x >= WIDTH) {
@@ -83,6 +109,38 @@ const positionToIdx = (x, y ) => {
 	}
 	return x + WIDTH * y;
 };
+
+socket.on('connect', () => { 
+    console.log('connected new player');
+});
+
+socket.on('start', (newUser) => {
+    userData = Object.assign(userData, newUser);
+    var newPanel = mazes.none;
+    var position = positionToIdx(userData.position.x, userData.position.y);
+    newPanel[position] = MY_COLOR;
+    drawMaze(newPanel);
+});
+
+// [
+//     {
+//         position: {x: , y: },
+//         color: [,,],
+//         id: ''
+//     }
+//     ...
+// ]
+socket.on('update', (users) => {
+    var newPanel = mazes.none;
+    users.map((user) => {
+        var position = positionToIdx(user.position.x, user.position.y);
+        var color = user.id !== userData.id ? user.color :  MY_COLOR;
+        newPanel[position] = color;
+    })
+
+    drawMaze(newPanel);
+});
+
 
 start();
 
