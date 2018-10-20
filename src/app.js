@@ -83,18 +83,22 @@ start();
 senseJoystick.getJoystick()
 .then((joystick) => {
     joystick.on('press', (val) => {
-       var x;
-       var y;
+       var x = 0;
+       var y = 0;
        console.log('mov', val);
         switch(val) {
            case 'up':
                y = -1;
+            break;
            case 'down':
                y = 1;
+            break;
            case 'left':
                x = -1;
+            break;
            case 'right':
                x = 1;
+            break;
        }
        console.log('x', x);
        console.log('y', y);
