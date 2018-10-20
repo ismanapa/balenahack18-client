@@ -88,16 +88,16 @@ senseJoystick.getJoystick()
        console.log('mov', val);
         switch(val) {
            case 'up':
-               y = -1;
-            break;
-           case 'down':
-               y = 1;
-            break;
-           case 'left':
                x = -1;
             break;
-           case 'right':
+           case 'down':
                x = 1;
+            break;
+           case 'left':
+               y = -1;
+            break;
+           case 'right':
+               y = 1;
             break;
        }
        console.log('x', x);
