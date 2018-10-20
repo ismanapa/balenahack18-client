@@ -67,7 +67,7 @@ const mockOnUpdate = () => {
             id: '1',
             position: {
                 x: 2,
-                y: 8,
+                y: 6,
             },
             color: [123,12,56],
         },
