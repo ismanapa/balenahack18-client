@@ -83,8 +83,9 @@ start();
 senseJoystick.getJoystick()
 .then((joystick) => {
     joystick.on('press', (val) => {
-       var x = 0;
-       var y = 0;
+       var x;
+       var y;
+       console.log('mov', val);
         switch(val) {
            case 'up':
                y = -1;
@@ -95,7 +96,9 @@ senseJoystick.getJoystick()
            case 'right':
                x = 1;
        }
-
+       console.log('x', x);
+       console.log('y', y);
+       console.log('userData', userData);
        socket.emit("move", {id: userData.id, move:{ x: x, y: y}})
        console.log('emitimos move');
     });
