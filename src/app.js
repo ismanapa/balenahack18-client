@@ -89,10 +89,10 @@ const mockOnUpdate = () => {
         },
     ];
 
-    var newPanel = mazes.none;
+    var newPanel = Object.assign({}, mazes.none);
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
-        var color = user.id !== userData.id ? user.color :  MY_COLOR;
+        var color = user.id !== userData.id ? user.color : MY_COLOR;
         newPanel[position] = color;
     })
 
@@ -107,7 +107,7 @@ const positionToIdx = (x, y ) => {
 	if (y < 0 || y >= HEIGHT) {
 		throw new Error(`y is out of bounds: ${y}`);
 	}
-	return x + WIDTH * y;
+	return x * WIDTH + y;
 };
 
 socket.on('connect', () => { 
@@ -116,7 +116,7 @@ socket.on('connect', () => {
 
 socket.on('start', (newUser) => {
     userData = Object.assign(userData, newUser);
-    var newPanel = mazes.none;
+    var newPanel = Object.assign({}, mazes.none);
     var position = positionToIdx(userData.position.x, userData.position.y);
     newPanel[position] = MY_COLOR;
     drawMaze(newPanel);
@@ -131,7 +131,7 @@ socket.on('start', (newUser) => {
 //     ...
 // ]
 socket.on('update', (users) => {
-    var newPanel = mazes.none;
+    var newPanel = Object.assign({}, mazes.none);
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
         var color = user.id !== userData.id ? user.color :  MY_COLOR;
