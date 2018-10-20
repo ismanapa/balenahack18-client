@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "socket.io-client": "^2.1.1"
+    "socket.io-client": "^2.1.1",
+    "sense-hat-led": "^1.0.1",
+    "sense-joystick": "0.0.2"
   }
 }
