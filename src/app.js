@@ -35,10 +35,6 @@ const maze = [
     _, _, _, _, _, _, _, _
 ];
 
-const drawMaze = (maze) => {
-    senseLeds.setPixels(maze);
-}
-
 const drawEmptyMaze = () => {
     senseLeds.setPixels(maze);
     console.log('drawed empty maze');
@@ -56,7 +52,7 @@ const mockOnStart = () => {
     console.log('start', patata);
     var position = positionToIdx(2, 4);
     patata[position] = MY_COLOR;
-    drawMaze(patata);
+    senseLeds.setPixels(patata);
 }
 
 const mockOnUpdate = () => {
@@ -95,7 +91,7 @@ const mockOnUpdate = () => {
         newPanel[position] = color;
     })
 
-    drawMaze(newPanel);
+    senseLeds.setPixels(newPanel);
 
 }
 
@@ -118,7 +114,7 @@ socket.on('start', (newUser) => {
     var newPanel = maze.slice(0);
     var position = positionToIdx(userData.position.x, userData.position.y);
     newPanel[position] = MY_COLOR;
-    drawMaze(newPanel);
+    senseLeds.setPixels(newPanel);
 });
 
 socket.on('update', (users) => {
@@ -129,7 +125,7 @@ socket.on('update', (users) => {
         newPanel[position] = color;
     })
 
-    drawMaze(newPanel);
+    senseLeds.setPixels(newPanel);
 });
 
 
