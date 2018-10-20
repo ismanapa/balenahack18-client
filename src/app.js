@@ -57,32 +57,6 @@ let userData = {
     role: ''
 };
 
-
-const start = () => {
-    senseLeds.setPixels(emptyMaze);
-}
-
-start();
-
-const positionToIdx = (x, y) => {
-	if (x < 0 || x >= WIDTH) {
-		throw new Error(`x is out of bounds: ${x}`);
-	}
-	if (y < 0 || y >= HEIGHT) {
-		throw new Error(`y is out of bounds: ${y}`);
-	}
-	return (WIDTH * x) + y;
-};
-
-const getColorByRole = (role) => {
-    switch(role) {
-        case SURVIVOR_ROLE:
-            return MY_SURVIVOR_COLOR;
-        case ZOMBIE_ROLE:
-            return MY_ZOMBIE_COLOR;
-    }
-}
-
 //EVENTS
 socket.on('connect', () => { 
     console.log('connected new player');
@@ -148,3 +122,30 @@ senseJoystick.getJoystick()
        socket.emit("move", {id: userData.id, move:{ x: x, y: y}})
     });
 });
+
+
+
+const start = () => {
+    senseLeds.setPixels(cross);
+}
+
+start();
+
+const positionToIdx = (x, y) => {
+	if (x < 0 || x >= WIDTH) {
+		throw new Error(`x is out of bounds: ${x}`);
+	}
+	if (y < 0 || y >= HEIGHT) {
+		throw new Error(`y is out of bounds: ${y}`);
+	}
+	return (WIDTH * x) + y;
+};
+
+const getColorByRole = (role) => {
+    switch(role) {
+        case SURVIVOR_ROLE:
+            return MY_SURVIVOR_COLOR;
+        case ZOMBIE_ROLE:
+            return MY_ZOMBIE_COLOR;
+    }
+}
