@@ -49,7 +49,7 @@ const positionToIdx = (x, y) => {
 	if (y < 0 || y >= HEIGHT) {
 		throw new Error(`y is out of bounds: ${y}`);
 	}
-	return (WIDTH + x) * y;
+	return (WIDTH + y) * x;
 };
 
 socket.on('connect', () => { 
