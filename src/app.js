@@ -55,37 +55,38 @@ const mockOnStart = () => {
     senseLeds.setPixels(newPanel);
 }
 
-const mockOnUpdate = () => {
-    const users = [
-        {
-            id: '1',
-            position: {
-                x: 2,
-                y: 6,
-            },
-            color: [123,12,56],
+const users = [
+    {
+        id: '1',
+        position: {
+            x: 2,
+            y: 6,
         },
-        {
-            id: '2',
-            position: {
-                x: 0,
-                y: 0,
-            },
-            color: [0,0,0],
+        color: [123,12,56],
+    },
+    {
+        id: '2',
+        position: {
+            x: 0,
+            y: 0,
         },
-        {
-            id: '3',
-            position: {
-                x: 4,
-                y: 6,
-            },
-            color: [47,89,104],
+        color: [0,0,0],
+    },
+    {
+        id: '3',
+        position: {
+            x: 4,
+            y: 6,
         },
-    ];
+        color: [47,89,104],
+    },
+];
 
+const mockOnUpdate = () => {
     var newPanel = maze.slice(0);
     
     users.map((user) => {
+        console.log('user', user);
         var position = positionToIdx(user.position.x, user.position.y);
         console.log('position', position);
         var color = user.id !== userData.id ? user.color : MY_COLOR;
@@ -97,7 +98,7 @@ const mockOnUpdate = () => {
     senseLeds.setPixels(newPanel);
 }
 
-const positionToIdx = (x, y ) => {
+const positionToIdx = (x, y) => {
 	if (x < 0 || x >= WIDTH) {
 		throw new Error(`x is out of bounds: ${x}`);
 	}
