@@ -22,6 +22,8 @@ let userData = {
     color: MY_COLOR,
 };
 
+const _ = [0, 0, 0];
+
 const maze = [
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _,
