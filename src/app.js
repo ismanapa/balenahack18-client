@@ -44,8 +44,8 @@ const cross = [
 const ZOMBIE_COLOR = [255, 0, 0];
 const SURVIVOR_COLOR = [0, 255, 0];
 
-const MY_ZOMBIE_COLOR = [190, 0, 0];
-const MY_SURVIVOR_COLOR = [0, 190, 0];
+const MY_ZOMBIE_COLOR = [120, 0, 0];
+const MY_SURVIVOR_COLOR = [0, 120, 0];
 
 let userData = {
     id: '2',
