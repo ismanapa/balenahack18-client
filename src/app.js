@@ -55,7 +55,7 @@ const start = () => {
 }
 
 const mockOnStart = () => {
-    var patata = mazes.none;
+    var patata =  Object.assign({}, mazes.none);
     var position = positionToIdx(2, 4);
     patata[position] = MY_COLOR;
     drawMaze(patata);
