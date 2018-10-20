@@ -3,7 +3,7 @@ const senseLeds = require('sense-hat-led');
 const senseJoystick = require('sense-joystick');
 
 //CONFIGURATION SETTINGS
-const SERVER_HOST = process.env.SERVER_HOST || 'http://10.10.1.67';
+const SERVER_HOST = process.env.SERVER_HOST || '10.10.1.95';
 const SERVER_PORT = process.env.SERVER_PORT || '8000';
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 
@@ -67,6 +67,7 @@ socket.on('start', (newUser) => {
 
 socket.on('update', (users) => {
     var newPanel = maze.slice(0);
+    console.log('users', users);
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
         var color = user.id !== userData.id ? user.color :  MY_COLOR;
@@ -95,6 +96,6 @@ senseJoystick.getJoystick()
                x = 1;
        }
 
-       on.emit("move", {id: userData.id, move:{ x: x, y: y}})
+       socket.on.emit("move", {id: userData.id, move:{ x: x, y: y}})
     });
 });
