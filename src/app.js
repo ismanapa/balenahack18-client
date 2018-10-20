@@ -22,30 +22,23 @@ let userData = {
     color: MY_COLOR,
 };
 
-const { mazes } = (() => {
-    const _ = BLACK_COLOR;
-	const mazes = {
-		none: [
-			_, _, _, _, _, _, _, _,
-			_, _, _, _, _, _, _, _,
-			_, _, _, _, _, _, _, _,
-			_, _, _, _, _, _, _, _,
-			_, _, _, _, _, _, _, _,
-			_, _, _, _, _, _, _, _,
-			_, _, _, _, _, _, _, _,
-			_, _, _, _, _, _, _, _
-		]
-	};
-
-	return { mazes }
-})();
+const maze = [
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _,
+    _, _, _, _, _, _, _, _
+];
 
 const drawMaze = (maze) => {
     senseLeds.setPixels(maze);
 }
 
 const drawEmptyMaze = () => {
-    senseLeds.setPixels(mazes.none);
+    senseLeds.setPixels(maze);
 }
 
 const start = () => {
@@ -55,8 +48,8 @@ const start = () => {
 }
 
 const mockOnStart = () => {
-    // var patata =  Object.assign([], ...mazes.none);   
-    var patata = mazes.none.slice(0);
+    // var patata =  Object.assign([], ...maze);   
+    var patata = maze.slice(0);
     var position = positionToIdx(2, 4);
     patata[position] = MY_COLOR;
     drawMaze(patata);
@@ -90,7 +83,7 @@ const mockOnUpdate = () => {
         },
     ];
 
-    var newPanel = mazes.none.slice(0);
+    var newPanel = maze.slice(0);
     
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
@@ -118,14 +111,14 @@ socket.on('connect', () => {
 
 socket.on('start', (newUser) => {
     userData = Object.assign(userData, newUser);
-    var newPanel = mazes.none.slice(0);
+    var newPanel = maze.slice(0);
     var position = positionToIdx(userData.position.x, userData.position.y);
     newPanel[position] = MY_COLOR;
     drawMaze(newPanel);
 });
 
 socket.on('update', (users) => {
-    var newPanel = mazes.none.slice(0);
+    var newPanel = maze.slice(0);
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
         var color = user.id !== userData.id ? user.color :  MY_COLOR;
