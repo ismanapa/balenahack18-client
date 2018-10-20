@@ -96,6 +96,6 @@ senseJoystick.getJoystick()
                x = 1;
        }
 
-       socket.on.emit("move", {id: userData.id, move:{ x: x, y: y}})
+       socket.emit("move", {id: userData.id, move:{ x: x, y: y}})
     });
 });
