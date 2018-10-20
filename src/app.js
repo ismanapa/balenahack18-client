@@ -87,6 +87,7 @@ const mockOnUpdate = () => {
     
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
+        console.log('position', position);
         var color = user.id !== userData.id ? user.color : MY_COLOR;
         console.log('update');
         newPanel[position] = color;
