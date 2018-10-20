@@ -12,6 +12,8 @@ const WIDTH = 8;
 const HEIGHT = 8;
 const MY_COLOR = process.env.MY_COLOR || [255, 255, 255];
 const BLACK_COLOR = [0, 0, 0];
+const RED_COLOR = [255, 0, 0];
+
 
 let userData = {
     id: '2',
@@ -23,6 +25,7 @@ let userData = {
 };
 
 const _ = BLACK_COLOR;
+const X = RED_COLOR;
 const maze = [
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _,
@@ -32,6 +35,17 @@ const maze = [
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _
+];
+
+const cross = [
+    X, _, _, _, _, _, _, X,
+    _, X, _, _, _, _, X, _,
+    _, _, X, _, _, X, _, _,
+    _, _, _, X, X, _, _, _,
+    _, _, _, X, X, _, _, _,
+    _, _, X, _, _, X, _, _,
+    _, X, _, _, _, _, X, _,
+    X, _, _, _, _, _, _, X
 ];
 
 const drawEmptyMaze = () => {
@@ -54,6 +68,10 @@ const positionToIdx = (x, y) => {
 
 socket.on('connect', () => { 
     console.log('connected new player');
+});
+
+socket.on('disconnect', () => { 
+    senseLeds.setPixels(cross);
 });
 
 socket.on('start', (newUser) => {
