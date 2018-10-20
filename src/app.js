@@ -7,7 +7,7 @@ const SERVER_HOST = process.env.SERVER_HOST || 'http://10.10.1.95';
 const SERVER_PORT = process.env.SERVER_PORT || '8000';
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 
-// APPLICATION SETTINGS
+APPLICATION SETTINGS
 const WIDTH = 8;
 const HEIGHT = 8;
 const MY_COLOR = process.env.MY_COLOR || [255, 255, 255];
@@ -22,8 +22,7 @@ let userData = {
     color: MY_COLOR,
 };
 
-const _ = [0, 0, 0];
-
+const _ = BLACK_COLOR;
 const maze = [
     _, _, _, _, _, _, _, _,
     _, _, _, _, _, _, _, _,
@@ -47,12 +46,13 @@ const start = () => {
 }
 
 const mockOnStart = () => {
-    // var patata =  Object.assign([], ...maze);   
-    var patata = maze.slice(0);
-    console.log('start', patata);
+    var patata =  Object.assign([], ...maze);   
+    var newPanel = maze.slice(0);
+    console.log('start', newPanel);
     var position = positionToIdx(2, 4);
-    patata[position] = MY_COLOR;
-    senseLeds.setPixels(patata);
+    newPanel[position] = MY_COLOR;
+    console.log('count', newPanel.length);
+    senseLeds.setPixels(newPanel);
 }
 
 const mockOnUpdate = () => {
@@ -88,11 +88,12 @@ const mockOnUpdate = () => {
     users.map((user) => {
         var position = positionToIdx(user.position.x, user.position.y);
         var color = user.id !== userData.id ? user.color : MY_COLOR;
+        console.log('update');
         newPanel[position] = color;
+        console.log('count', newPanel.length);
     })
 
     senseLeds.setPixels(newPanel);
-
 }
 
 const positionToIdx = (x, y ) => {
