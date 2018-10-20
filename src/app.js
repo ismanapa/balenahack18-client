@@ -7,7 +7,7 @@ const SERVER_HOST = process.env.SERVER_HOST || 'http://10.10.1.95';
 const SERVER_PORT = process.env.SERVER_PORT || '8000';
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 
-APPLICATION SETTINGS
+//APPLICATION SETTINGS
 const WIDTH = 8;
 const HEIGHT = 8;
 const MY_COLOR = process.env.MY_COLOR || [255, 255, 255];
