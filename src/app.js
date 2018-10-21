@@ -15,6 +15,7 @@ player = new Player();
 socket.on('connect', () => { 
     console.log('player connected');
     for(var seconds = 3; seconds >= 0; seconds--) {
+        console.log(panel.countDown[seconds]); 
         setInterval(function(){ 
             senseLeds.setPixels(panel.countDown[seconds]);
         }, 1000);
