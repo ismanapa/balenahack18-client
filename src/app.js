@@ -13,7 +13,7 @@ const utils = new Utils();
 player = new Player();
 
 socket.on('connect', () => { 
-    console.log('connected new player');
+    console.log('player connected');
     for(var seconds = 3; seconds >= 0; seconds--) {
         setInterval(function(){ 
             senseLeds.setPixels(panel.countDown[seconds]);
