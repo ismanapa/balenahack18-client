@@ -1,6 +1,6 @@
 var { BLACK_COLOR, RED_COLOR } = require('./colors');
 
-export class Panel {
+class Panel {
     _ = BLACK_COLOR;
     X = RED_COLOR;
     empty = [
@@ -67,3 +67,5 @@ export class Panel {
         ]
     ];   
 }
+
+module.exports = Panel;
