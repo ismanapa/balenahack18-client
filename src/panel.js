@@ -1,4 +1,4 @@
-import { BLACK_COLOR, RED_COLOR } from 'colors.js'
+import { BLACK_COLOR, RED_COLOR } from './colors'
 
 export class Panel {
     _ = BLACK_COLOR;

@@ -1,5 +1,5 @@
-import { UserRole } from 'role.js'
-import { MY_SURVIVOR_COLOR } from 'colors.js'
+import { UserRole } from './role'
+import { MY_SURVIVOR_COLOR } from './colors'
 
 class player {
     id;
