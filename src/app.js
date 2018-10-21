@@ -43,7 +43,7 @@ socket.on('update', (users) => {
 });
 
 const start = () => {
-    SenseHat.printPanel(cross);
+    SenseHat.printPanel(Panel.cross);
 }
 
 start();
