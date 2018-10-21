@@ -9,7 +9,7 @@ var WIDTH = require('./settings');
 var HEIGHT = require('./settings');
 
 class Utils {
-	GetPosition(x, y) {
+	getPosition(x, y) {
 		if (x < 0 || x >= WIDTH) {
 			throw new Error(`x is out of bounds: ${x}`);
 		}
