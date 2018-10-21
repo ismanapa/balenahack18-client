@@ -1,10 +1,11 @@
 var { SERVER_HOST, SERVER_PORT } = require('./config');
 var Utils = require('./utils');
-var SenseHat = require('./sensehat');
 var Panel = require('./panel');
 var Player = require('./player');
 
 const senseJoystick = require('sense-joystick');
+const senseLeds = require('sense-hat-led');
+
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 const player = new Player();
 
@@ -12,13 +13,13 @@ socket.on('connect', () => {
     console.log('connected new player');
     for(var second = 3; second >= 0; second--) {
         setInterval(function(){ 
-            SenseHat.printPanel(Panel.countDown[second]);
+            senseLeds.setPixels(Panel.countDown[second]);
         }, 1000);
     }
 });
 
 socket.on('disconnect', () => { 
-    SenseHat.printPanel(Panel.cross);
+    senseLeds.setPixels(Panel.cross);
 });
 
 socket.on('start', (newUser) => {
@@ -28,7 +29,7 @@ socket.on('start', (newUser) => {
     var newPanel = Panel.empty.slice(0);
     newPanel[position] = Utils.getColor(player.role);
 
-    SenseHat.printPanel(newPanel);
+    senseLeds.setPixels(newPanel);
 });
 
 socket.on('update', (users) => {
@@ -39,11 +40,11 @@ socket.on('update', (users) => {
         newPanel[position] = color;
     })
 
-    SenseHat.printPanel(newPanel);
+    senseLeds.setPixels(newPanel);
 });
 
 const start = () => {
-    SenseHat.printPanel(Panel.cross);
+    senseLeds.setPixels(Panel.cross);
 }
 
 start();
