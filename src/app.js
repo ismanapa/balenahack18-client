@@ -9,6 +9,7 @@ const senseLeds = require('sense-hat-led');
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 
 const panel = new Panel();
+const utils = new Utils();
 player = new Player();
 
 socket.on('connect', () => { 
@@ -26,10 +27,10 @@ socket.on('disconnect', () => {
 
 socket.on('start', (newUser) => {
     player = Object.assign(player, newUser);
-    var position = Utils.getPosition(player.position.x, player.position.y);
+    var position = utils.getPosition(player.position.x, player.position.y);
 
     var newPanel = panel.empty.slice(0);
-    newPanel[position] = Utils.getColor(player.role);
+    newPanel[position] = utils.getColor(player.role);
 
     senseLeds.setPixels(newPanel);
 });
@@ -37,8 +38,8 @@ socket.on('start', (newUser) => {
 socket.on('update', (users) => {
     var newPanel = panel.empty.slice(0);
     users.map((user) => {
-        var position = Utils.getPosition(user.position.x, user.position.y);
-        var color = Utils.getColor(user.role, user.id === player.id);
+        var position = utils.getPosition(user.position.x, user.position.y);
+        var color = utils.getColor(user.role, user.id === player.id);
         newPanel[position] = color;
     })
 
