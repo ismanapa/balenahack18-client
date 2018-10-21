@@ -1,8 +1,9 @@
-import { SERVER_HOST, SERVER_PORT } from './config';
-import { Utils } from './utils';
-import { SenseHat } from './sensehat'
-import { Panel } from './panel'
-import { Player } from './player'
+var {SERVER_HOST} = require('./config');
+var {SERVER_PORT} = require('./config');
+var {Utils} = require('./utils');
+var {SenseHat} = require('./sensehat');
+var {Panel} = require('./panel');
+var {Player} = require('./player');
 
 const senseJoystick = require('sense-joystick');
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
