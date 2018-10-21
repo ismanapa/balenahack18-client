@@ -1,11 +1,12 @@
-import {
-    ZOMBIE_COLOR, 
-    SURVIVOR_COLOR, 
-    MY_ZOMBIE_COLOR, 
-    MY_SURVIVOR_COLOR
-} from "colors.js";
-import { userRole } from "role.js";
-import { WIDTH, HEIGHT} from "settings.js";
+var { 
+	ZOMBIE_COLOR, 
+	SURVIVOR_COLOR, 
+	MY_ZOMBIE_COLOR, 
+	MY_SURVIVOR_COLOR 
+} = require('./colors');
+var userRole = require('./role');
+var WIDTH = require('./settings');
+var HEIGHT = require('./settings');
 
 export class Utils {
 	GetPosition = (x, y) => {

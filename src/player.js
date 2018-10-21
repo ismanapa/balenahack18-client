@@ -1,5 +1,5 @@
-import { UserRole } from './role'
-import { MY_SURVIVOR_COLOR } from './colors'
+var UserRole = require('./role');
+var MY_SURVIVOR_COLOR = require('./colors');
 
 class player {
     id;

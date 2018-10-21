@@ -1,4 +1,4 @@
-import { BLACK_COLOR, RED_COLOR } from './colors'
+var { BLACK_COLOR, RED_COLOR } = require('./colors');
 
 export class Panel {
     _ = BLACK_COLOR;
