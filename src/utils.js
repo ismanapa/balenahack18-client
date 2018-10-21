@@ -9,7 +9,7 @@ var WIDTH = require('./settings');
 var HEIGHT = require('./settings');
 
 class Utils {
-	GetPosition = (x, y) => {
+	GetPosition(x, y) {
 		if (x < 0 || x >= WIDTH) {
 			throw new Error(`x is out of bounds: ${x}`);
 		}
@@ -19,7 +19,7 @@ class Utils {
 		return (WIDTH * x) + y;
 	};
 	
-	getColor = (role, isThisPlayer) => {
+	getColor(role, isThisPlayer) {
 		switch(role) {
 			case UserRole.survivor:
 				return isThisPlayer ? MY_SURVIVOR_COLOR : SURVIVOR_COLOR;
