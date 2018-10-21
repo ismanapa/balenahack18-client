@@ -7,9 +7,9 @@ const senseJoystick = require('sense-joystick');
 const senseLeds = require('sense-hat-led');
 
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
-const player = new Player();
 
-panel = new Panel();
+const panel = new Panel();
+player = new Player();
 
 socket.on('connect', () => { 
     console.log('connected new player');
