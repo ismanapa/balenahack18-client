@@ -1,6 +1,6 @@
-class UserRole {
-    zombie = "zombie";
-    survivor = "survivor";
+const UserRole = {
+    zombie: 'zombie',
+    survivor: 'survivor'
 };
 
-module.exports = { userRole }
+module.exports = { UserRole }
