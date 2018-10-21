@@ -9,32 +9,33 @@ const senseLeds = require('sense-hat-led');
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 const player = new Player();
 
+panel = new Panel();
+
 socket.on('connect', () => { 
     console.log('connected new player');
     for(var seconds = 3; seconds >= 0; seconds--) {
         setInterval(function(){ 
-            console.log(Panel.countDown[secondes])
-            senseLeds.setPixels(Panel.countDown[seconds]);
+            senseLeds.setPixels(panel.countDown[seconds]);
         }, 1000);
     }
 });
 
 socket.on('disconnect', () => { 
-    senseLeds.setPixels(Panel.cross);
+    senseLeds.setPixels(panel.cross);
 });
 
 socket.on('start', (newUser) => {
     player = Object.assign(player, newUser);
     var position = Utils.getPosition(player.position.x, player.position.y);
 
-    var newPanel = Panel.empty.slice(0);
+    var newPanel = panel.empty.slice(0);
     newPanel[position] = Utils.getColor(player.role);
 
     senseLeds.setPixels(newPanel);
 });
 
 socket.on('update', (users) => {
-    var newPanel = Panel.empty.slice(0);
+    var newPanel = panel.empty.slice(0);
     users.map((user) => {
         var position = Utils.getPosition(user.position.x, user.position.y);
         var color = Utils.getColor(user.role, user.id === player.id);
@@ -45,7 +46,7 @@ socket.on('update', (users) => {
 });
 
 const start = () => {
-    senseLeds.setPixels(Panel.cross);
+    senseLeds.setPixels(panel.cross);
 }
 
 start();
