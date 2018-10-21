@@ -1,8 +1,9 @@
 var { BLACK_COLOR, RED_COLOR } = require('./colors');
 
+const _ = BLACK_COLOR;
+const X = RED_COLOR;
+
 class Panel {
-    _ = BLACK_COLOR;
-    X = RED_COLOR;
     empty = [
         _, _, _, _, _, _, _, _,
         _, _, _, _, _, _, _, _,
