@@ -4,11 +4,11 @@ var {
 	MY_ZOMBIE_COLOR, 
 	MY_SURVIVOR_COLOR 
 } = require('./colors');
-var userRole = require('./role');
+var UserRole = require('./role');
 var WIDTH = require('./settings');
 var HEIGHT = require('./settings');
 
-export class Utils {
+class Utils {
 	GetPosition = (x, y) => {
 		if (x < 0 || x >= WIDTH) {
 			throw new Error(`x is out of bounds: ${x}`);
@@ -21,10 +21,12 @@ export class Utils {
 	
 	getColor = (role, isThisPlayer) => {
 		switch(role) {
-			case userRole.survivor:
+			case UserRole.survivor:
 				return isThisPlayer ? MY_SURVIVOR_COLOR : SURVIVOR_COLOR;
-			case userRole.zombie:
+			case UserRole.zombie:
 				return isThisPlayer ? MY_ZOMBIE_COLOR : ZOMBIE_COLOR;
 		}
 	}
 }
+
+module.exports = Utils;
