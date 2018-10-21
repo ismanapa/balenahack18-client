@@ -11,9 +11,10 @@ const player = new Player();
 
 socket.on('connect', () => { 
     console.log('connected new player');
-    for(var second = 3; second >= 0; second--) {
+    for(var seconds = 3; seconds >= 0; seconds--) {
         setInterval(function(){ 
-            senseLeds.setPixels(Panel.countDown[second]);
+            console.log(Panel.countDown[secondes])
+            senseLeds.setPixels(Panel.countDown[seconds]);
         }, 1000);
     }
 });
