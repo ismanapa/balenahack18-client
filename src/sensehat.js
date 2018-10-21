@@ -1,7 +1,7 @@
 const senseLeds = require('sense-hat-led');
 
 class SenseHat {
-    printPanel = (panel) => {
+    printPanel(panel) {
         senseLeds.setPixels(panel);
     }
 }
