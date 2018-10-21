@@ -1,6 +1,3 @@
-
-export { colors, pannels, config, settings, role, utils, sensehat }
-
 const socket = require('socket.io-client')(`http://${SERVER_HOST}:${SERVER_PORT}`);
 
 socket.on('connect', () => { 
