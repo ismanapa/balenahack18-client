@@ -16,9 +16,12 @@ socket.on('connect', () => {
     console.log('player connected');
     for(var seconds = 3; seconds >= 0; seconds--) { 
         setTimeout(function(){ 
+            console.log("second", seconds)
+            console.log("countdown", panel.countDown[seconds])
             senseLeds.setPixels(panel.countDown[seconds]);
         }, seconds * 1000);
     }
+    console.log('countdown finished');
 });
 
 socket.on('disconnect', () => { 
