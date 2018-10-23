@@ -1,4 +1,4 @@
-var { BLACK_COLOR, RED_COLOR } = require('./colors');
+const { BLACK_COLOR, RED_COLOR } = require('./colors');
 
 const _ = BLACK_COLOR;
 const X = RED_COLOR;

@@ -1,12 +1,12 @@
-var { 
+const { 
 	ZOMBIE_COLOR, 
 	SURVIVOR_COLOR, 
 	MY_ZOMBIE_COLOR, 
 	MY_SURVIVOR_COLOR 
 } = require('./colors');
-var UserRole = require('./role');
-var WIDTH = require('./settings');
-var HEIGHT = require('./settings');
+const UserRole = require('./role');
+const WIDTH = require('./settings');
+const HEIGHT = require('./settings');
 
 class Utils {
 	getPosition(x, y) {

@@ -1,5 +1,5 @@
-var UserRole = require('./role');
-var MY_SURVIVOR_COLOR = require('./colors');
+const UserRole = require('./role');
+const MY_SURVIVOR_COLOR = require('./colors');
 
 class Player {
     constructor() {
