@@ -1,3 +1,4 @@
+var { SERVER_HOST, SERVER_PORT } = require('./config');
 var Utils = require('./utils');
 var Panel = require('./panel');
 var Player = require('./player');
